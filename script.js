@@ -76,6 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (iconElement) {
                     iconElement.textContent = getWeatherEmoji(weatherCode);
                 }
+                
+                // Store weather code globally for clothing suggestions
+                window.currentWeatherCode = weatherCode;
             }
             
             // Update daily high/low and UV index
@@ -108,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     uvLevelElement.textContent = getUVLevel(uvIndex);
                 }
             }
+            
+            // Generate clothing suggestions after all data is loaded
+            setTimeout(generateClothingSuggestions, 500);
         } catch (error) {
             console.error('Error fetching weather:', error);
             const tempElement = document.getElementById('weather-temp');
@@ -182,6 +188,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 aqiLevelElement.textContent = 'Unable to load';
             }
         }
+        
+        // Generate clothing suggestions after air quality data is loaded
+        setTimeout(generateClothingSuggestions, 500);
     }
     
     // Get AQI level description
@@ -199,6 +208,92 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update air quality every 30 minutes
     setInterval(fetchAirQuality, 1800000);
+    
+    // Clothing recommendations configuration
+    const clothingRules = {
+        // Temperature-based clothing (in Fahrenheit)
+        temperature: [
+            { max: 40, items: ['Heavy coat', 'Long pants', 'Scarf and gloves'] },
+            { max: 55, items: ['Jacket or sweater', 'Long pants'] },
+            { max: 70, items: ['Long sleeves', 'Light pants or jeans'] },
+            { max: 85, items: ['Short sleeves', 'Shorts or light pants'] },
+            { max: 999, items: ['Tank top or light shirt', 'Shorts'] }
+        ],
+        // UV index recommendations
+        uvIndex: [
+            { min: 0, max: 2, items: [] },
+            { min: 3, max: 5, items: ['Sunglasses'] },
+            { min: 6, max: 7, items: ['Sunglasses', 'Sunscreen'] },
+            { min: 8, max: 10, items: ['Sunglasses', 'Sunscreen', 'Hat'] },
+            { min: 11, max: 99, items: ['Sunglasses', 'Sunscreen', 'Hat', 'Seek shade'] }
+        ],
+        // Air quality recommendations
+        airQuality: [
+            { max: 50, items: [] },
+            { max: 100, items: [] },
+            { max: 150, items: ['Mask (if sensitive)'] },
+            { max: 200, items: ['Mask recommended'] },
+            { max: 999, items: ['Mask strongly recommended', 'Limit outdoor time'] }
+        ],
+        // Weather condition recommendations (by weather code)
+        weatherConditions: {
+            rain: { codes: [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82], items: ['Umbrella', 'Rain jacket'] },
+            snow: { codes: [71, 73, 75, 77, 85, 86], items: ['Umbrella', 'Waterproof boots', 'Warm coat'] },
+            thunderstorm: { codes: [95, 96, 99], items: ['Umbrella', 'Rain jacket', 'Stay indoors if possible'] }
+        }
+    };
+    
+    // Generate clothing suggestions
+    function generateClothingSuggestions() {
+        const suggestions = [];
+        
+        // Get current data
+        const tempF = parseFloat(document.getElementById('weather-temp')?.textContent) || 70;
+        const uvIndex = parseFloat(document.getElementById('uv-index')?.textContent) || 0;
+        const aqi = parseFloat(document.getElementById('aqi-value')?.textContent) || 50;
+        const weatherCode = window.currentWeatherCode || 0;
+        
+        // Temperature-based clothing
+        for (const rule of clothingRules.temperature) {
+            if (tempF <= rule.max) {
+                suggestions.push(...rule.items);
+                break;
+            }
+        }
+        
+        // UV protection
+        for (const rule of clothingRules.uvIndex) {
+            if (uvIndex >= rule.min && uvIndex <= rule.max) {
+                suggestions.push(...rule.items);
+                break;
+            }
+        }
+        
+        // Air quality protection
+        for (const rule of clothingRules.airQuality) {
+            if (aqi <= rule.max) {
+                suggestions.push(...rule.items);
+                break;
+            }
+        }
+        
+        // Weather-specific items
+        for (const [condition, data] of Object.entries(clothingRules.weatherConditions)) {
+            if (data.codes.includes(weatherCode)) {
+                suggestions.push(...data.items);
+            }
+        }
+        
+        // Display suggestions
+        const container = document.getElementById('clothing-suggestions');
+        if (container && suggestions.length > 0) {
+            container.innerHTML = '<ul class="clothing-list">' + 
+                suggestions.map(item => `<li>✓ ${item}</li>`).join('') + 
+                '</ul>';
+        } else if (container) {
+            container.innerHTML = '<p>Perfect weather! Wear whatever feels comfortable.</p>';
+        }
+    }
     
     console.log('Dashboard loaded successfully!');
 });

@@ -119,6 +119,23 @@ main {
     line-height: 1.6;
 }
 
+.clothing-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.clothing-list li {
+    color: #333;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    background: white;
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 .content-section h3 {
     color: #333;
     margin-top: 25px;
