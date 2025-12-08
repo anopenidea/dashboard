@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Using Open-Meteo API (free, no API key required)
             // Houston coordinates: 29.7604, -95.3698
-            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&temperature_unit=fahrenheit&timezone=America/Chicago');
+            // Added daily data for high/low temps and UV index
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max&temperature_unit=fahrenheit&timezone=America/Chicago');
             const data = await response.json();
             
             if (data.current) {
@@ -76,6 +77,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     iconElement.textContent = getWeatherEmoji(weatherCode);
                 }
             }
+            
+            // Update daily high/low and UV index
+            if (data.daily) {
+                const highF = Math.round(data.daily.temperature_2m_max[0]);
+                const lowF = Math.round(data.daily.temperature_2m_min[0]);
+                const highC = Math.round((highF - 32) * 5 / 9);
+                const lowC = Math.round((lowF - 32) * 5 / 9);
+                const uvIndex = data.daily.uv_index_max[0];
+                
+                // Update high/low
+                const highLowElement = document.getElementById('temp-high-low');
+                if (highLowElement) {
+                    highLowElement.textContent = `${highF}° / ${lowF}°`;
+                }
+                
+                const highLowCelsiusElement = document.getElementById('temp-high-low-celsius');
+                if (highLowCelsiusElement) {
+                    highLowCelsiusElement.textContent = `${highC}°C / ${lowC}°C`;
+                }
+                
+                // Update UV index
+                const uvElement = document.getElementById('uv-index');
+                if (uvElement) {
+                    uvElement.textContent = Math.round(uvIndex);
+                }
+                
+                const uvLevelElement = document.getElementById('uv-level');
+                if (uvLevelElement) {
+                    uvLevelElement.textContent = getUVLevel(uvIndex);
+                }
+            }
         } catch (error) {
             console.error('Error fetching weather:', error);
             const tempElement = document.getElementById('weather-temp');
@@ -87,6 +119,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 descElement.textContent = 'Unable to load';
             }
         }
+    }
+    
+    // Get UV level description
+    function getUVLevel(uv) {
+        if (uv < 3) return 'Low';
+        if (uv < 6) return 'Moderate';
+        if (uv < 8) return 'High';
+        if (uv < 11) return 'Very High';
+        return 'Extreme';
     }
     
     // Convert weather code to emoji
