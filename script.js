@@ -118,12 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const sunriseElement = document.getElementById('sunrise-time');
                     if (sunriseElement) {
-                        sunriseElement.textContent = sunset.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        sunriseElement.textContent = sunrise.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
                     }
                     
                     const sunsetElement = document.getElementById('sunset-time');
                     if (sunsetElement) {
-                        sunsetElement.textContent = sunrise.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        sunsetElement.textContent = sunset.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
                     }
                 }
             }
@@ -215,32 +215,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update air quality every 30 minutes
     setInterval(fetchAirQuality, 1800000);
     
-    // Quote of the Day
+    // Quote of the Day - US Authors Only
     const quotes = [
-        { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
         { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
         { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-        { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+        { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
         { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
         { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-        { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-        { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
-        { text: "I learned that courage was not the absence of fear, but the triumph over it.", author: "Nelson Mandela" },
+        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
+        { text: "Life is like riding a bicycle. To keep your balance, you must keep moving.", author: "Albert Einstein" },
+        { text: "The important thing is not to stop questioning. Curiosity has its own reason for existing.", author: "Albert Einstein" },
         { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
         { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
         { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
         { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
-        { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
-        { text: "Life is like riding a bicycle. To keep your balance, you must keep moving.", author: "Albert Einstein" },
-        { text: "The important thing is not to stop questioning. Curiosity has its own reason for existing.", author: "Albert Einstein" },
-        { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
-        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
         { text: "Code is like humor. When you have to explain it, it's bad.", author: "Cory House" },
         { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
-        { text: "Experience is the name everyone gives to their mistakes.", author: "Oscar Wilde" },
-        { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
-        { text: "Any sufficiently advanced technology is indistinguishable from magic.", author: "Arthur C. Clarke" },
-        { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" }
+        { text: "It always seems impossible until it's done.", author: "Thomas Edison" },
+        { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas Edison" },
+        { text: "Genius is one percent inspiration and ninety-nine percent perspiration.", author: "Thomas Edison" },
+        { text: "The only true wisdom is in knowing you know nothing.", author: "Richard Feynman" }
     ];
     
     let currentQuoteIndex = 0;
