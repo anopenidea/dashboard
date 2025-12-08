@@ -304,10 +304,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // UV index recommendations
         uvIndex: [
             { min: 0, max: 2, items: [] },
-            { min: 3, max: 5, items: [] },
-            { min: 6, max: 7, items: ['Sunscreen'] },
-            { min: 8, max: 10, items: ['Sunscreen', 'Hat'] },
-            { min: 11, max: 99, items: ['Sunscreen', 'Hat', 'Seek shade'] }
+            { min: 3, max: 5, items: ['Sunglasses'] },
+            { min: 6, max: 7, items: ['Sunglasses', 'Sunscreen'] },
+            { min: 8, max: 10, items: ['Sunglasses', 'Sunscreen', 'Hat'] },
+            { min: 11, max: 99, items: ['Sunglasses', 'Sunscreen', 'Hat', 'Seek shade'] }
         ],
         // Air quality recommendations
         airQuality: [
