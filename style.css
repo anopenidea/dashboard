@@ -97,6 +97,12 @@ main {
     color: #667eea;
 }
 
+.weather-desc {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
 .content-section {
     background: #f8f9fa;
     padding: 30px;
