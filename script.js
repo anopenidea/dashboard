@@ -209,6 +209,46 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(generateClothingSuggestions, 500);
     }
     
+    // Quote of the Day
+    const quotes = [
+        { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+        { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
+        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+        { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+        { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+        { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+        { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+        { text: "Believe in yourself. You are braver than you think, more talented than you know, and capable of more than you imagine.", author: "Roy T. Bennett" },
+        { text: "I learned that courage was not the absence of fear, but the triumph over it.", author: "Nelson Mandela" },
+        { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+        { text: "In this life we cannot do great things. We can only do small things with great love.", author: "Mother Teresa" },
+        { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+        { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+        { text: "Dream big and dare to fail.", author: "Norman Vaughan" }
+    ];
+    
+    function displayQuote() {
+        // Use date as seed for consistent quote per day
+        const today = new Date();
+        const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+        const quoteIndex = dayOfYear % quotes.length;
+        const quote = quotes[quoteIndex];
+        
+        const quoteText = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+        
+        if (quoteText) {
+            quoteText.textContent = `"${quote.text}"`;
+        }
+        if (quoteAuthor) {
+            quoteAuthor.textContent = `— ${quote.author}`;
+        }
+    }
+    
+    // Display quote on load
+    displayQuote();
+    
     // Get AQI level description
     function getAQILevel(aqi) {
         if (aqi <= 50) return 'Good';
