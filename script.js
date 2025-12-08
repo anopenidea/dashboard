@@ -209,6 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(generateClothingSuggestions, 500);
     }
     
+    // Fetch air quality on load
+    fetchAirQuality();
+    
+    // Update air quality every 30 minutes
+    setInterval(fetchAirQuality, 1800000);
+    
     // Quote of the Day
     const quotes = [
         { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
