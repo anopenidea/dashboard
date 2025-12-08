@@ -149,5 +149,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update weather every 10 minutes
     setInterval(fetchWeather, 600000);
     
+    // Fetch air quality
+    async function fetchAirQuality() {
+        try {
+            // Houston coordinates: 29.7604, -95.3698
+            const response = await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=29.7604&longitude=-95.3698&current=us_aqi,pm2_5,pm10&timezone=America/Chicago');
+            const data = await response.json();
+            
+            if (data.current) {
+                const aqi = Math.round(data.current.us_aqi);
+                
+                // Update AQI value
+                const aqiElement = document.getElementById('aqi-value');
+                if (aqiElement) {
+                    aqiElement.textContent = aqi;
+                }
+                
+                // Update AQI level description
+                const aqiLevelElement = document.getElementById('aqi-level');
+                if (aqiLevelElement) {
+                    aqiLevelElement.textContent = getAQILevel(aqi);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching air quality:', error);
+            const aqiElement = document.getElementById('aqi-value');
+            if (aqiElement) {
+                aqiElement.textContent = 'N/A';
+            }
+            const aqiLevelElement = document.getElementById('aqi-level');
+            if (aqiLevelElement) {
+                aqiLevelElement.textContent = 'Unable to load';
+            }
+        }
+    }
+    
+    // Get AQI level description
+    function getAQILevel(aqi) {
+        if (aqi <= 50) return 'Good';
+        if (aqi <= 100) return 'Moderate';
+        if (aqi <= 150) return 'Unhealthy for Sensitive';
+        if (aqi <= 200) return 'Unhealthy';
+        if (aqi <= 300) return 'Very Unhealthy';
+        return 'Hazardous';
+    }
+    
+    // Fetch air quality on load
+    fetchAirQuality();
+    
+    // Update air quality every 30 minutes
+    setInterval(fetchAirQuality, 1800000);
+    
     console.log('Dashboard loaded successfully!');
 });
