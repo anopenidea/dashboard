@@ -225,21 +225,37 @@ document.addEventListener('DOMContentLoaded', function() {
         { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
         { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
         { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
-        { text: "Believe in yourself. You are braver than you think, more talented than you know, and capable of more than you imagine.", author: "Roy T. Bennett" },
         { text: "I learned that courage was not the absence of fear, but the triumph over it.", author: "Nelson Mandela" },
         { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
-        { text: "In this life we cannot do great things. We can only do small things with great love.", author: "Mother Teresa" },
         { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
         { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-        { text: "Dream big and dare to fail.", author: "Norman Vaughan" }
+        { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
+        { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
+        { text: "Life is like riding a bicycle. To keep your balance, you must keep moving.", author: "Albert Einstein" },
+        { text: "The important thing is not to stop questioning. Curiosity has its own reason for existing.", author: "Albert Einstein" },
+        { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+        { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+        { text: "Code is like humor. When you have to explain it, it's bad.", author: "Cory House" },
+        { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+        { text: "Experience is the name everyone gives to their mistakes.", author: "Oscar Wilde" },
+        { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+        { text: "Any sufficiently advanced technology is indistinguishable from magic.", author: "Arthur C. Clarke" },
+        { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" }
     ];
     
-    function displayQuote() {
-        // Use date as seed for consistent quote per day
-        const today = new Date();
-        const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-        const quoteIndex = dayOfYear % quotes.length;
-        const quote = quotes[quoteIndex];
+    let currentQuoteIndex = 0;
+    
+    function displayQuote(index = null) {
+        // If no index provided, use date as seed for consistent quote per day
+        if (index === null) {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            currentQuoteIndex = dayOfYear % quotes.length;
+        } else {
+            currentQuoteIndex = index % quotes.length;
+        }
+        
+        const quote = quotes[currentQuoteIndex];
         
         const quoteText = document.getElementById('quote-text');
         const quoteAuthor = document.getElementById('quote-author');
@@ -254,6 +270,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Display quote on load
     displayQuote();
+    
+    // Next quote button
+    const nextQuoteBtn = document.getElementById('next-quote-btn');
+    if (nextQuoteBtn) {
+        nextQuoteBtn.addEventListener('click', function() {
+            displayQuote(currentQuoteIndex + 1);
+        });
+    }
     
     // Get AQI level description
     function getAQILevel(aqi) {
