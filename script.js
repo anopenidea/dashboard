@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Using Open-Meteo API (free, no API key required)
             // Houston coordinates: 29.7604, -95.3698
-            // Added daily data for high/low temps and UV index
-            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max&temperature_unit=fahrenheit&timezone=America/Chicago');
+            // Added daily data for high/low temps, UV index, and sunrise/sunset
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset&temperature_unit=fahrenheit&timezone=America/Chicago');
             const data = await response.json();
             
             if (data.current) {
@@ -109,6 +109,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 const uvLevelElement = document.getElementById('uv-level');
                 if (uvLevelElement) {
                     uvLevelElement.textContent = getUVLevel(uvIndex);
+                }
+                
+                // Update sunrise/sunset
+                if (data.daily.sunrise && data.daily.sunset) {
+                    const sunrise = new Date(data.daily.sunrise[0]);
+                    const sunset = new Date(data.daily.sunset[0]);
+                    
+                    const sunriseElement = document.getElementById('sunrise-time');
+                    if (sunriseElement) {
+                        sunriseElement.textContent = '🌅 ' + sunrise.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                    }
+                    
+                    const sunsetElement = document.getElementById('sunset-time');
+                    if (sunsetElement) {
+                        sunsetElement.textContent = '🌇 ' + sunset.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                    }
                 }
             }
             
