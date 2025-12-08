@@ -290,6 +290,13 @@ footer {
     color: white;
 }
 
+#quote-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 150px;
+}
+
 .quote-text {
     font-size: 1.3rem;
     font-style: italic;
