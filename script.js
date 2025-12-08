@@ -118,12 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const sunriseElement = document.getElementById('sunrise-time');
                     if (sunriseElement) {
-                        sunriseElement.textContent = '🌅 ' + sunrise.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        sunriseElement.textContent = sunrise.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
                     }
                     
                     const sunsetElement = document.getElementById('sunset-time');
                     if (sunsetElement) {
-                        sunsetElement.textContent = '🌇 ' + sunset.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        sunsetElement.textContent = sunset.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
                     }
                 }
             }
