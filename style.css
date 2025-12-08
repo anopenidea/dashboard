@@ -258,6 +258,8 @@ footer {
 
 .half-width {
     margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .quote-header {
@@ -294,7 +296,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 150px;
+    flex-grow: 1;
+    padding: 20px 0;
 }
 
 .quote-text {
