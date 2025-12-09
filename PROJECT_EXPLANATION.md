@@ -78,7 +78,7 @@ Uses the **Open-Meteo Air Quality API** to track Houston's air quality:
 - **AQI Categories**:
   - 0-50: Good
   - 51-100: Moderate
-  - 101-150: Unhealthy for Sensitive Groups
+  - 101-150: Unhealthy for Sensitive
   - 151-200: Unhealthy
   - 201-300: Very Unhealthy
   - 300+: Hazardous
@@ -117,7 +117,7 @@ The dashboard provides personalized clothing suggestions based on multiple envir
 
 ### 5. Quote of the Day
 
-A curated collection of inspirational quotes from notable American figures:
+A curated collection of inspirational quotes from notable figures:
 
 **Features:**
 - **Daily Quote**: Automatically shows a different quote each day (based on day of year)
@@ -130,7 +130,7 @@ A curated collection of inspirational quotes from notable American figures:
 The dashboard adapts to different screen sizes:
 
 **Desktop View (>768px):**
-- 8 weather stat cards in grid layout (auto-fit, min 250px)
+- 8 stat cards in grid layout displaying date, time, and weather information (auto-fit, min 250px)
 - Two-column layout for clothing suggestions and quotes
 - Full navigation menu
 
@@ -143,10 +143,10 @@ The dashboard adapts to different screen sizes:
 ### 7. Interactive Animations
 
 **User Experience Enhancements:**
-- **Stat Card Animation**: Cards fade in sequentially on page load (100ms stagger)
-- **Hover Effects**: Cards lift up with shadow when hovered
-- **Smooth Transitions**: All interactive elements have smooth 0.3s transitions
-- **Button Animations**: Quote button changes color and background on hover
+- **Stat Card Animation**: Cards fade in sequentially on page load with 0.5s transitions (100ms stagger)
+- **Hover Effects**: Cards lift up with shadow when hovered (0.3s transition)
+- **Smooth Transitions**: Interactive elements use optimized transitions (0.2-0.5s depending on element)
+- **Button Animations**: Quote button changes color and background on hover (0.2s transition)
 
 ## 🔧 Technical Implementation Details
 
