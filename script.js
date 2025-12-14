@@ -275,6 +275,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Daily Reminders
+    const reminders = [
+        "💧 Drink a glass of water",
+        "🚶 Take a 10-minute walk today",
+        "📱 Text someone you care about",
+        "🧘 Take 3 deep breaths",
+        "😊 Smile at a stranger",
+        "📖 Read for 15 minutes",
+        "🥗 Eat something green",
+        "🌅 Step outside for fresh air",
+        "🙏 Write down one thing you're grateful for",
+        "💪 Stretch for 5 minutes",
+        "👁️ Rest your eyes from screens",
+        "🎵 Listen to your favorite song",
+        "🧹 Tidy one small area",
+        "📝 Write down tomorrow's top 3 tasks",
+        "😴 Go to bed 30 minutes earlier tonight",
+        "☕ Take a mindful coffee break",
+        "🌳 Notice something beautiful in nature",
+        "📞 Call a friend or family member",
+        "🧠 Learn one new thing today",
+        "❤️ Do something kind for someone"
+    ];
+    
+    let currentReminderIndex = Math.floor(Math.random() * reminders.length);
+    
+    function displayReminder() {
+        const reminder = reminders[currentReminderIndex];
+        const reminderText = document.getElementById('reminder-text');
+        
+        if (reminderText) {
+            reminderText.textContent = reminder;
+        }
+    }
+    
+    // Display reminder on load
+    displayReminder();
+    
+    // Next reminder button
+    const nextReminderBtn = document.getElementById('next-reminder-btn');
+    if (nextReminderBtn) {
+        nextReminderBtn.addEventListener('click', function() {
+            currentReminderIndex = Math.floor(Math.random() * reminders.length);
+            displayReminder();
+        });
+    }
+    
     // Get AQI level description
     function getAQILevel(aqi) {
         if (aqi <= 50) return 'Good';
