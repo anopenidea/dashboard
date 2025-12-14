@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "You're capable of amazing things",
         "Someone is grateful you exist",
         "You're making a difference",
-        "You deserve good things",
+        "Today is full of possibilities",
         "Your best is always enough",
         "You're stronger than yesterday",
         "You bring something special to this world",
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "You're exactly where you need to be",
         "You inspire others more than you know",
         "Your kindness makes the world better",
-        "You're worthy of love and respect",
+        "Great things are coming your way",
         "You're doing an amazing job",
         "You have the power to create positive change",
         "You're braver than you believe"
