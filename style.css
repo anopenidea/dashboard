@@ -235,20 +235,6 @@ footer {
     font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    main {
-        padding: 20px;
-    }
-}
-
 .two-column-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -444,12 +430,41 @@ footer {
 }
 
 @media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
     .two-column-section {
         grid-template-columns: 1fr;
     }
     
     .forecast-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+    }
+    
+    .daily-card {
+        padding: 15px 8px;
+    }
+    
+    .daily-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .daily-card .weather-icon {
+        font-size: 2rem;
+    }
+    
+    .daily-card .temp-range {
+        font-size: 1rem;
     }
     
     .hourly-grid {
