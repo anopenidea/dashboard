@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Update high/low
                 const highLowElement = document.getElementById('temp-high-low');
                 if (highLowElement) {
-                    highLowElement.textContent = `${highF}° / ${lowF}°`;
+                    highLowElement.textContent = `${highF}°F / ${lowF}°F`;
                 }
                 
                 const highLowCelsiusElement = document.getElementById('temp-high-low-celsius');
