@@ -322,6 +322,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Mood Lifter Affirmations
+    const affirmations = [
+        "You're doing better than you think",
+        "Your progress matters, even when it's small",
+        "You're capable of amazing things",
+        "Someone is grateful you exist",
+        "You're making a difference",
+        "You deserve good things",
+        "Your best is always enough",
+        "You're stronger than yesterday",
+        "You bring something special to this world",
+        "It's okay to take things one step at a time",
+        "You're growing every single day",
+        "Your efforts are noticed and appreciated",
+        "You have so much to be proud of",
+        "You're exactly where you need to be",
+        "You inspire others more than you know",
+        "Your kindness makes the world better",
+        "You're worthy of love and respect",
+        "You're doing an amazing job",
+        "You have the power to create positive change",
+        "You're braver than you believe"
+    ];
+    
+    let currentAffirmationIndex = Math.floor(Math.random() * affirmations.length);
+    
+    function displayAffirmation() {
+        const affirmation = affirmations[currentAffirmationIndex];
+        const affirmationText = document.getElementById('affirmation-text');
+        
+        if (affirmationText) {
+            affirmationText.textContent = affirmation;
+        }
+    }
+    
+    // Display affirmation on load
+    displayAffirmation();
+    
+    // Next affirmation button
+    const nextAffirmationBtn = document.getElementById('next-affirmation-btn');
+    if (nextAffirmationBtn) {
+        nextAffirmationBtn.addEventListener('click', function() {
+            currentAffirmationIndex = Math.floor(Math.random() * affirmations.length);
+            displayAffirmation();
+        });
+    }
+    
     // Get AQI level description
     function getAQILevel(aqi) {
         if (aqi <= 50) return 'Good';
