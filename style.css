@@ -324,55 +324,63 @@ footer {
 }
 
 .daily-card {
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    background: white;
     border-radius: 12px;
-    padding: 20px;
+    padding: 20px 15px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
 }
 
 .daily-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .daily-card h3 {
     color: #667eea;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .daily-card .weather-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 10px 0;
 }
 
 .daily-card .temp-range {
-    margin: 10px 0;
-    font-size: 1.2rem;
+    margin: 8px 0;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
 .daily-card .temp-range .high {
     color: #d32f2f;
-    font-weight: 600;
-    margin-right: 10px;
+    font-weight: 700;
 }
 
 .daily-card .temp-range .low {
     color: #1976d2;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .daily-card .temp-range-celsius {
-    font-size: 0.9rem;
-    color: #666;
-    margin: 5px 0;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 3px 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
 .daily-card .precip {
-    margin-top: 10px;
-    color: #666;
-    font-size: 0.9rem;
+    margin-top: 8px;
+    color: #999;
+    font-size: 0.85rem;
 }
 
 /* Hourly Forecast Grid */
