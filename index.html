@@ -11,13 +11,15 @@
         <header>
             <h1>My Dashboard</h1>
             <nav class="nav-links">
-                <a href="index.html" class="active">Dashboard</a>
+                <a href="#top" class="active">Dashboard</a>
+                <a href="#daily">Daily</a>
+                <a href="#hourly">Hourly</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </nav>
         </header>
         
-        <main>
+        <main id="top">
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Current Date</h3>
@@ -100,6 +102,22 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Daily Forecast Section -->
+            <section id="daily" class="forecast-section">
+                <h2>7-Day Forecast</h2>
+                <div id="daily-forecast" class="forecast-grid">
+                    <p>Loading daily forecast...</p>
+                </div>
+            </section>
+            
+            <!-- Hourly Forecast Section -->
+            <section id="hourly" class="forecast-section">
+                <h2>24-Hour Forecast</h2>
+                <div id="hourly-forecast" class="hourly-grid">
+                    <p>Loading hourly forecast...</p>
+                </div>
+            </section>
         </main>
         
         <footer>

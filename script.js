@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Using Open-Meteo API (free, no API key required)
             // Houston coordinates: 29.7604, -95.3698
             // Added daily data for high/low temps, UV index, and sunrise/sunset
-            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset&temperature_unit=fahrenheit&timezone=America/Chicago');
+            // Added hourly data for 24-hour forecast
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,relative_humidity_2m,weather_code&hourly=temperature_2m,precipitation_probability,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code,uv_index_max,sunrise,sunset&temperature_unit=fahrenheit&timezone=America/Chicago&forecast_days=7');
             const data = await response.json();
             
             if (data.current) {
@@ -128,6 +129,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
+            // Display daily and hourly forecasts
+            if (data.daily) {
+                displayDailyForecast(data.daily);
+            }
+            if (data.hourly) {
+                displayHourlyForecast(data.hourly);
+            }
+            
             // Generate clothing suggestions after all data is loaded
             setTimeout(generateClothingSuggestions, 500);
         } catch (error) {
@@ -163,6 +172,78 @@ document.addEventListener('DOMContentLoaded', function() {
         if (code <= 86) return '❄️';
         if (code <= 99) return '⛈️';
         return '🌤️';
+    }
+    
+    // Display daily forecast
+    function displayDailyForecast(dailyData) {
+        const dailyContainer = document.getElementById('daily-forecast');
+        if (!dailyContainer || !dailyData) return;
+        
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let html = '';
+        
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(dailyData.time[i]);
+            const dayName = i === 0 ? 'Today' : days[date.getDay()];
+            const highF = Math.round(dailyData.temperature_2m_max[i]);
+            const lowF = Math.round(dailyData.temperature_2m_min[i]);
+            const highC = Math.round((highF - 32) * 5/9);
+            const lowC = Math.round((lowF - 32) * 5/9);
+            const weatherCode = dailyData.weather_code[i];
+            const precipProb = dailyData.precipitation_probability_max[i] || 0;
+            const emoji = getWeatherEmoji(weatherCode);
+            
+            html += `
+                <div class="daily-card">
+                    <h3>${dayName}</h3>
+                    <div class="weather-icon">${emoji}</div>
+                    <div class="temp-range">
+                        <span class="high">${highF}°F</span>
+                        <span class="low">${lowF}°F</span>
+                    </div>
+                    <div class="temp-range-celsius">
+                        <span class="high">${highC}°C</span>
+                        <span class="low">${lowC}°C</span>
+                    </div>
+                    <div class="precip">💧 ${precipProb}%</div>
+                </div>
+            `;
+        }
+        
+        dailyContainer.innerHTML = html;
+    }
+    
+    // Display hourly forecast
+    function displayHourlyForecast(hourlyData) {
+        const hourlyContainer = document.getElementById('hourly-forecast');
+        if (!hourlyContainer || !hourlyData) return;
+        
+        let html = '';
+        const now = new Date();
+        
+        // Show next 24 hours
+        for (let i = 0; i < 24; i++) {
+            const time = new Date(hourlyData.time[i]);
+            const hour = time.getHours();
+            const hourLabel = hour === 0 ? '12 AM' : hour < 12 ? `${hour} AM` : hour === 12 ? '12 PM' : `${hour - 12} PM`;
+            const tempF = Math.round(hourlyData.temperature_2m[i]);
+            const tempC = Math.round((tempF - 32) * 5/9);
+            const weatherCode = hourlyData.weather_code[i];
+            const precipProb = hourlyData.precipitation_probability[i] || 0;
+            const emoji = getWeatherEmoji(weatherCode);
+            
+            html += `
+                <div class="hourly-card">
+                    <div class="hour">${hourLabel}</div>
+                    <div class="weather-icon">${emoji}</div>
+                    <div class="temp">${tempF}°F</div>
+                    <div class="temp-celsius">${tempC}°C</div>
+                    <div class="precip">💧 ${precipProb}%</div>
+                </div>
+            `;
+        }
+        
+        hourlyContainer.innerHTML = html;
     }
     
     // Fetch weather on load
@@ -329,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "You're capable of amazing things",
         "Someone is grateful you exist",
         "You're making a difference",
-        "Today is full of possibilities",
+        "You deserve good things",
         "Your best is always enough",
         "You're stronger than yesterday",
         "You bring something special to this world",
@@ -340,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "You're exactly where you need to be",
         "You inspire others more than you know",
         "Your kindness makes the world better",
-        "Great things are coming your way",
+        "You're worthy of love and respect",
         "You're doing an amazing job",
         "You have the power to create positive change",
         "You're braver than you believe"
