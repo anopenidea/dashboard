@@ -208,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Color intensity: hot days = more red less blue, cold days = more blue less red
             const redIntensity = Math.round(200 + (tempRatio * 55)); // 200-255
-            const redAlpha = 0.25 + (tempRatio * 0.15); // 0.25-0.4
+            const redAlpha = 0.12 + (tempRatio * 0.08); // 0.12-0.2
             const blueIntensity = Math.round(200 + ((1 - tempRatio) * 55)); // 200-255
-            const blueAlpha = 0.25 + ((1 - tempRatio) * 0.15); // 0.25-0.4
+            const blueAlpha = 0.12 + ((1 - tempRatio) * 0.08); // 0.12-0.2
             
             const topColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
             const bottomColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
