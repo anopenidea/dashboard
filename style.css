@@ -317,8 +317,8 @@ footer {
 /* Daily Forecast Grid */
 .forecast-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
     max-width: 1100px;
     margin: 0 auto;
 }
