@@ -203,8 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const avgTemp = (highF + lowF) / 2;
             const tempRatio = tempRange > 0 ? (avgTemp - minTemp) / tempRange : 0.5;
             
-            // Line position: hot days = 30-40% (line high), cold days = 60-70% (line low)
-            const splitPercent = Math.round(70 - (tempRatio * 40));
+            // Line position: hot days = 10% (line high), cold days = 90% (line low)
+            const splitPercent = Math.round(90 - (tempRatio * 80));
             
             // Color intensity: hot days = more red less blue, cold days = more blue less red
             const redIntensity = Math.round(200 + (tempRatio * 55)); // 200-255
@@ -278,8 +278,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Calculate split position and color intensity based on temp
             const tempRatio = tempRange > 0 ? (tempF - minTemp) / tempRange : 0.5;
             
-            // Line position: hot hours = 30-40% (line high), cold hours = 60-70% (line low)
-            const splitPercent = Math.round(70 - (tempRatio * 40));
+            // Line position: hot hours = 10% (line high), cold hours = 90% (line low)
+            const splitPercent = Math.round(90 - (tempRatio * 80));
             
             // Color intensity: hot hours = more red less blue, cold hours = more blue less red
             const redIntensity = Math.round(200 + (tempRatio * 55)); // 200-255
