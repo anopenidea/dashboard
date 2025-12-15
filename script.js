@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const blueAlpha = 0.12 + ((1 - tempRatio) * 0.08); // 0.12-0.2
             
             const topColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
-            const bottomColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
+            const bottomColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
             
             const gradient = `linear-gradient(to bottom, ${topColor} ${splitPercent}%, ${bottomColor} ${splitPercent}%)`;
             
