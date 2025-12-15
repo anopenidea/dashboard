@@ -199,14 +199,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipProb = dailyData.precipitation_probability_max[i] || 0;
             const emoji = getWeatherEmoji(weatherCode);
             
-            // Calculate color based on temperature (0 = coolest = green, 1 = hottest = red)
-            const tempRatio = tempRange > 0 ? (highF - minTemp) / tempRange : 0.5;
-            const red = Math.round(255 * tempRatio);
-            const green = Math.round(255 * (1 - tempRatio));
-            const bgColor = `rgba(${red}, ${green}, 100, 0.15)`;
+            // Calculate colors for high and low temps
+            // High temp: red intensity based on how hot
+            const highRatio = tempRange > 0 ? (highF - minTemp) / tempRange : 0.5;
+            const highRed = Math.round(255 * highRatio * 0.6 + 100);
+            const topColor = `rgba(${highRed}, 100, 100, 0.25)`;
+            
+            // Low temp: blue intensity based on how cold
+            const lowRatio = tempRange > 0 ? (lowF - minTemp) / tempRange : 0.5;
+            const lowBlue = Math.round(255 * (1 - lowRatio) * 0.6 + 100);
+            const bottomColor = `rgba(100, 100, ${lowBlue}, 0.25)`;
+            
+            const gradient = `linear-gradient(to bottom, ${topColor}, ${bottomColor})`;
             
             html += `
-                <div class="daily-card" style="background: ${bgColor};">
+                <div class="daily-card" style="background: ${gradient};">
                     <h3>${dayName}</h3>
                     <div class="weather-icon">${emoji}</div>
                     <div class="temp-range">
