@@ -199,18 +199,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipProb = dailyData.precipitation_probability_max[i] || 0;
             const emoji = getWeatherEmoji(weatherCode);
             
-            // Calculate colors for high and low temps
-            // High temp: red intensity based on how hot
-            const highRatio = tempRange > 0 ? (highF - minTemp) / tempRange : 0.5;
-            const highRed = Math.round(255 * highRatio * 0.6 + 100);
-            const topColor = `rgba(${highRed}, 100, 100, 0.25)`;
+            // Calculate split position based on average temp
+            // Higher temp = line moves up (more red), lower temp = line moves down (more blue)
+            const avgTemp = (highF + lowF) / 2;
+            const tempRatio = tempRange > 0 ? (avgTemp - minTemp) / tempRange : 0.5;
+            // Convert to percentage: hot days = 30-40% (line high up, more red), cold days = 60-70% (line low, more blue)
+            const splitPercent = Math.round(70 - (tempRatio * 40)); // Range from 30% to 70%
             
-            // Low temp: blue intensity based on how cold
-            const lowRatio = tempRange > 0 ? (lowF - minTemp) / tempRange : 0.5;
-            const lowBlue = Math.round(255 * (1 - lowRatio) * 0.6 + 100);
-            const bottomColor = `rgba(100, 100, ${lowBlue}, 0.25)`;
+            const topColor = `rgba(255, 150, 150, 0.3)`; // Light red
+            const bottomColor = `rgba(150, 180, 255, 0.3)`; // Light blue
             
-            const gradient = `linear-gradient(to bottom, ${topColor} 50%, ${bottomColor} 50%)`;
+            const gradient = `linear-gradient(to bottom, ${topColor} ${splitPercent}%, ${bottomColor} ${splitPercent}%)`;
             
             html += `
                 <div class="daily-card" style="background: ${gradient};">
