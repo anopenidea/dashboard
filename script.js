@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Find min and max temps across all 7 days for color scaling
         const allHighs = dailyData.temperature_2m_max.slice(0, 7);
-        const minTemp = Math.min(...allHighs);
+        const allLows = dailyData.temperature_2m_min.slice(0, 7);
+        const minTemp = Math.min(...allLows);
         const maxTemp = Math.max(...allHighs);
         const tempRange = maxTemp - minTemp;
         
