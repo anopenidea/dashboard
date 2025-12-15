@@ -221,8 +221,18 @@ document.addEventListener('DOMContentLoaded', function() {
         let html = '';
         const now = new Date();
         
-        // Show next 24 hours
-        for (let i = 0; i < 24; i++) {
+        // Find the current hour index in the API data
+        let startIndex = 0;
+        for (let i = 0; i < hourlyData.time.length; i++) {
+            const time = new Date(hourlyData.time[i]);
+            if (time >= now) {
+                startIndex = i;
+                break;
+            }
+        }
+        
+        // Show next 24 hours starting from current hour
+        for (let i = startIndex; i < startIndex + 24 && i < hourlyData.time.length; i++) {
             const time = new Date(hourlyData.time[i]);
             const hour = time.getHours();
             const hourLabel = hour === 0 ? '12 AM' : hour < 12 ? `${hour} AM` : hour === 12 ? '12 PM' : `${hour - 12} PM`;
