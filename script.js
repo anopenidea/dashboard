@@ -189,9 +189,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxTemp = Math.max(...allHighs);
         const tempRange = maxTemp - minTemp;
         
+        // Get today's date to compare
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
         for (let i = 0; i < 7; i++) {
             const date = new Date(dailyData.time[i]);
-            const dayName = i === 0 ? 'Today' : days[date.getDay()];
+            date.setHours(0, 0, 0, 0);
+            const isToday = date.getTime() === today.getTime();
+            const dayName = isToday ? 'Today' : days[date.getDay()];
             const highF = Math.round(dailyData.temperature_2m_max[i]);
             const lowF = Math.round(dailyData.temperature_2m_min[i]);
             const highC = Math.round((highF - 32) * 5/9);
