@@ -182,6 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let html = '';
         
+        // Find min and max temps across all 7 days for color scaling
+        const allHighs = dailyData.temperature_2m_max.slice(0, 7);
+        const minTemp = Math.min(...allHighs);
+        const maxTemp = Math.max(...allHighs);
+        const tempRange = maxTemp - minTemp;
+        
         for (let i = 0; i < 7; i++) {
             const date = new Date(dailyData.time[i]);
             const dayName = i === 0 ? 'Today' : days[date.getDay()];
@@ -193,8 +199,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipProb = dailyData.precipitation_probability_max[i] || 0;
             const emoji = getWeatherEmoji(weatherCode);
             
+            // Calculate color based on temperature (0 = coolest = green, 1 = hottest = red)
+            const tempRatio = tempRange > 0 ? (highF - minTemp) / tempRange : 0.5;
+            const red = Math.round(255 * tempRatio);
+            const green = Math.round(255 * (1 - tempRatio));
+            const bgColor = `rgba(${red}, ${green}, 100, 0.15)`;
+            
             html += `
-                <div class="daily-card">
+                <div class="daily-card" style="background: ${bgColor};">
                     <h3>${dayName}</h3>
                     <div class="weather-icon">${emoji}</div>
                     <div class="temp-range">
