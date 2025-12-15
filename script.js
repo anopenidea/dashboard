@@ -182,6 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let html = '';
         
+        // Get today's day index for calculating day names
+        const today = new Date();
+        const todayDayIndex = today.getDay();
+        
         // Find min and max temps across all 7 days for color scaling
         const allHighs = dailyData.temperature_2m_max.slice(0, 7);
         const allLows = dailyData.temperature_2m_min.slice(0, 7);
@@ -190,9 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const tempRange = maxTemp - minTemp;
         
         for (let i = 0; i < 7; i++) {
-            const date = new Date(dailyData.time[i]);
-            // First day is always "Today", rest show actual day names
-            const dayName = i === 0 ? 'Today' : days[date.getDay()];
+            // First day is "Today", rest are sequential days after today
+            const dayName = i === 0 ? 'Today' : days[(todayDayIndex + i) % 7];
             const highF = Math.round(dailyData.temperature_2m_max[i]);
             const lowF = Math.round(dailyData.temperature_2m_min[i]);
             const highC = Math.round((highF - 32) * 5/9);
