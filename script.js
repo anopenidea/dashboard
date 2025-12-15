@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const lowBlue = Math.round(255 * (1 - lowRatio) * 0.6 + 100);
             const bottomColor = `rgba(100, 100, ${lowBlue}, 0.25)`;
             
-            const gradient = `linear-gradient(to bottom, ${topColor}, ${bottomColor})`;
+            const gradient = `linear-gradient(to bottom, ${topColor} 50%, ${bottomColor} 50%)`;
             
             html += `
                 <div class="daily-card" style="background: ${gradient};">
