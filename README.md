@@ -8,9 +8,8 @@ A modern, feature-rich weather dashboard built for daily use. Displays real-time
 
 ### 🌤️ Weather Intelligence
 - Real-time Houston weather with dual °F/°C display
-- 7-Day Forecast with city selection
-- 24-Hour Forecast with city selection
-- Multi-city support for forecasts (Houston, NYC, LA, Chicago, Phoenix, Denver, Seattle, Miami)
+- 7-Day Forecast
+- 24-Hour Forecast starting from current time
 - UV index, air quality (AQI), sunrise/sunset times
 - Precipitation probability tracking
 
