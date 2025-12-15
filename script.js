@@ -213,8 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const blueIntensity = Math.round(200 + ((1 - tempRatio) * 55)); // 200-255
             const blueAlpha = 0.12 + ((1 - tempRatio) * 0.08); // 0.12-0.2
             
-            const topColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
-            const bottomColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
+            const topColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
+            const bottomColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
             
             const gradient = `linear-gradient(to bottom, ${topColor} ${splitPercent}%, ${bottomColor} ${splitPercent}%)`;
             
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const blueIntensity = Math.round(200 + ((1 - tempRatio) * 55)); // 200-255
             const blueAlpha = 0.12 + ((1 - tempRatio) * 0.08); // 0.12-0.2
             
-            const topColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
+            const topColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
             const bottomColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
             
             const gradient = `linear-gradient(to bottom, ${topColor} ${splitPercent}%, ${bottomColor} ${splitPercent}%)`;
