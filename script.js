@@ -182,42 +182,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let html = '';
         
-        // Get today's date to compare and find starting index
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        
-        // Find the index of today in the API data
-        let startIndex = 0;
-        for (let i = 0; i < dailyData.time.length; i++) {
-            const date = new Date(dailyData.time[i]);
-            date.setHours(0, 0, 0, 0);
-            if (date.getTime() >= today.getTime()) {
-                startIndex = i;
-                break;
-            }
-        }
-        
-        // Collect 7 days starting from today for temperature scaling
-        const forecastDays = [];
-        for (let i = startIndex; i < startIndex + 7 && i < dailyData.time.length; i++) {
-            forecastDays.push({
-                high: dailyData.temperature_2m_max[i],
-                low: dailyData.temperature_2m_min[i]
-            });
-        }
-        
-        const allHighs = forecastDays.map(d => d.high);
-        const allLows = forecastDays.map(d => d.low);
+        // Find min and max temps across all 7 days for color scaling
+        const allHighs = dailyData.temperature_2m_max.slice(0, 7);
+        const allLows = dailyData.temperature_2m_min.slice(0, 7);
         const minTemp = Math.min(...allLows);
         const maxTemp = Math.max(...allHighs);
         const tempRange = maxTemp - minTemp;
         
-        // Display 7 days starting from today
-        for (let i = startIndex; i < startIndex + 7 && i < dailyData.time.length; i++) {
+        for (let i = 0; i < 7; i++) {
             const date = new Date(dailyData.time[i]);
-            date.setHours(0, 0, 0, 0);
-            const isToday = date.getTime() === today.getTime();
-            const dayName = isToday ? 'Today' : days[date.getDay()];
+            // First day is always "Today", rest show actual day names
+            const dayName = i === 0 ? 'Today' : days[date.getDay()];
             const highF = Math.round(dailyData.temperature_2m_max[i]);
             const lowF = Math.round(dailyData.temperature_2m_min[i]);
             const highC = Math.round((highF - 32) * 5/9);
