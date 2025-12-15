@@ -255,6 +255,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
+        // Collect temps for next 24 hours to find min/max for color scaling
+        const hourlyTemps = [];
+        for (let i = startIndex; i < startIndex + 24 && i < hourlyData.time.length; i++) {
+            hourlyTemps.push(Math.round(hourlyData.temperature_2m[i]));
+        }
+        const minTemp = Math.min(...hourlyTemps);
+        const maxTemp = Math.max(...hourlyTemps);
+        const tempRange = maxTemp - minTemp;
+        
         // Show next 24 hours starting from current hour
         for (let i = startIndex; i < startIndex + 24 && i < hourlyData.time.length; i++) {
             const time = new Date(hourlyData.time[i]);
@@ -266,8 +275,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipProb = hourlyData.precipitation_probability[i] || 0;
             const emoji = getWeatherEmoji(weatherCode);
             
+            // Calculate split position and color intensity based on temp
+            const tempRatio = tempRange > 0 ? (tempF - minTemp) / tempRange : 0.5;
+            
+            // Line position: hot hours = 30-40% (line high), cold hours = 60-70% (line low)
+            const splitPercent = Math.round(70 - (tempRatio * 40));
+            
+            // Color intensity: hot hours = more red less blue, cold hours = more blue less red
+            const redIntensity = Math.round(200 + (tempRatio * 55)); // 200-255
+            const redAlpha = 0.12 + (tempRatio * 0.08); // 0.12-0.2
+            const blueIntensity = Math.round(200 + ((1 - tempRatio) * 55)); // 200-255
+            const blueAlpha = 0.12 + ((1 - tempRatio) * 0.08); // 0.12-0.2
+            
+            const topColor = `rgba(${redIntensity}, 150, 150, ${redAlpha})`;
+            const bottomColor = `rgba(150, 180, ${blueIntensity}, ${blueAlpha})`;
+            
+            const gradient = `linear-gradient(to bottom, ${topColor} ${splitPercent}%, ${bottomColor} ${splitPercent}%)`;
+            
             html += `
-                <div class="hourly-card">
+                <div class="hourly-card" style="background: ${gradient};">
                     <div class="hour">${hourLabel}</div>
                     <div class="weather-icon">${emoji}</div>
                     <div class="temp">${tempF}°F</div>
