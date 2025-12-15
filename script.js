@@ -307,6 +307,40 @@ document.addEventListener('DOMContentLoaded', function() {
         hourlyContainer.innerHTML = html;
     }
     
+    // Fetch forecast for specific city
+    async function fetchForecast(latitude, longitude, type) {
+        try {
+            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation_probability,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&temperature_unit=fahrenheit&timezone=auto&forecast_days=7`);
+            const data = await response.json();
+            
+            if (type === 'daily' && data.daily) {
+                displayDailyForecast(data.daily);
+            } else if (type === 'hourly' && data.hourly) {
+                displayHourlyForecast(data.hourly);
+            }
+        } catch (error) {
+            console.error(`Error fetching ${type} forecast:`, error);
+        }
+    }
+    
+    // Setup city selection dropdowns
+    const dailyCitySelect = document.getElementById('daily-city-select');
+    const hourlyCitySelect = document.getElementById('hourly-city-select');
+    
+    if (dailyCitySelect) {
+        dailyCitySelect.addEventListener('change', function() {
+            const [lat, lon] = this.value.split(',');
+            fetchForecast(lat, lon, 'daily');
+        });
+    }
+    
+    if (hourlyCitySelect) {
+        hourlyCitySelect.addEventListener('change', function() {
+            const [lat, lon] = this.value.split(',');
+            fetchForecast(lat, lon, 'hourly');
+        });
+    }
+    
     // Fetch weather on load
     fetchWeather();
     
